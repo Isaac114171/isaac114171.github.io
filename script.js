@@ -1,4 +1,13 @@
 
+// ==========================================
+// MARS SURVIVAL 2.0
+// MAIN JAVASCRIPT
+// ==========================================
+
+
+// ==========================================
+// 1. MOBILE MENU
+// ==========================================
 
 const menuToggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
@@ -16,17 +25,19 @@ if (menuToggle && navLinks) {
 }
 
 
-
+// ==========================================
+// 2. EXPLORATION MISSIONS
+// ==========================================
 
 const missions = {
 
     base: {
         number: "BASE",
         name: "Starship",
-        problem: "El superviviente razionara sus recursos para completar las misiones.",
-        objective: "Mantener los sistemas de supervivencia y revisar los recursos disponibles.",
-        benefit: "Conservar un lugar de resguardo desde el que organizar las expediciones.",
-        data: "Monitoreo de recursos, energía y condiciones del refugio.",
+        problem: "The survivor must ration available resources to complete the missions.",
+        objective: "Maintain survival systems and monitor available resources.",
+        benefit: "Provide a safe shelter from which to organize expeditions.",
+        data: "Resource monitoring, energy levels, and shelter conditions.",
         resources: {
             water: 0,
             oxygen: 0,
@@ -37,12 +48,12 @@ const missions = {
     },
 
     seitah: {
-        number: "MISIÓN 01",
+        number: "MISSION 01",
         name: "Séítah",
-        problem: "El terreno arenoso y rocoso puede dificultar el desplazamiento y representar obstáculos para la exploración.",
-        objective: "Analizar el terreno, identificar zonas transitables y estudiar materiales geológicos.",
-        benefit: "Reconocer posibles rutas más seguras y conocer mejor las características del suelo marciano.",
-        data: "Imágenes ópticas, composición de rocas, textura del suelo y relieve superficial.",
+        problem: "Sandy and rocky terrain may make movement difficult and create obstacles for exploration.",
+        objective: "Analyze the terrain, identify accessible areas, and study geological materials.",
+        benefit: "Identify potentially safer routes and better understand the characteristics of the Martian soil.",
+        data: "Optical images, rock composition, soil texture, and surface elevation.",
         resources: {
             water: 15,
             oxygen: 20,
@@ -53,12 +64,12 @@ const missions = {
     },
 
     threeforks: {
-        number: "MISIÓN 02",
+        number: "MISSION 02",
         name: "Three Forks",
-        problem: "Se necesita ampliar la información sobre los materiales geológicos de la zona y su relación con el depósito de muestras de Perseverance.",
-        objective: "Documentar las características del terreno y estudiar los materiales geológicos presentes.",
-        benefit: "Obtener información adicional sobre la composición del suelo y los materiales marcianos.",
-        data: "Registro visual de rocas, características del terreno y ubicación del depósito de muestras.",
+        problem: "More information is needed about the area's geological materials and their relationship to the Perseverance sample depot.",
+        objective: "Document the terrain characteristics and study the geological materials present.",
+        benefit: "Obtain additional information about the composition of the soil and Martian materials.",
+        data: "Visual records of rocks, terrain characteristics, and sample depot location.",
         resources: {
             water: 20,
             oxygen: 25,
@@ -69,12 +80,12 @@ const missions = {
     },
 
     delta: {
-        number: "MISIÓN 03",
-        name: "Frente del delta",
-        problem: "Existen preguntas sobre los antiguos ambientes acuáticos y los sedimentos depositados en el delta.",
-        objective: "Examinar capas sedimentarias y buscar minerales que aporten información sobre la presencia antigua de agua.",
-        benefit: "Comprender mejor la historia geológica de Marte e investigar posibles ambientes habitables en el pasado.",
-        data: "Capas sedimentarias, imágenes de afloramientos, minerales y estructuras geológicas.",
+        number: "MISSION 03",
+        name: "Delta Front",
+        problem: "Questions remain about ancient aquatic environments and the sediments deposited in the delta.",
+        objective: "Examine sedimentary layers and search for minerals that provide evidence of ancient water.",
+        benefit: "Better understand Mars' geological history and investigate potentially habitable environments from the past.",
+        data: "Sedimentary layers, outcrop images, minerals, and geological structures.",
         resources: {
             water: 25,
             oxygen: 30,
@@ -85,12 +96,12 @@ const missions = {
     },
 
     neretva: {
-        number: "MISIÓN 04",
+        number: "MISSION 04",
         name: "Neretva Vallis",
-        problem: "Se requiere investigar los sedimentos y las rocas relacionados con el antiguo canal fluvial.",
-        objective: "Analizar los materiales del terreno y buscar evidencias de antiguos procesos relacionados con el agua.",
-        benefit: "Ampliar el conocimiento sobre los antiguos ambientes marcianos e identificar nuevas zonas de interés científico.",
-        data: "Formas del relieve, depósitos sedimentarios, imágenes ópticas y composición de rocas.",
+        problem: "Sediments and rocks associated with the ancient river channel need further investigation.",
+        objective: "Analyze terrain materials and search for evidence of ancient water-related processes.",
+        benefit: "Expand our understanding of ancient Martian environments and identify new areas of scientific interest.",
+        data: "Landforms, sediment deposits, optical images, and rock composition.",
         resources: {
             water: 30,
             oxygen: 35,
@@ -102,6 +113,9 @@ const missions = {
 };
 
 
+// ==========================================
+// 3. RESOURCE ELEMENTS
+// ==========================================
 
 const resourceInputs = {
     water: document.getElementById("water"),
@@ -116,6 +130,11 @@ const resourceValues = {
     energy: document.getElementById("energy-value"),
     food: document.getElementById("food-value")
 };
+
+
+// ==========================================
+// 4. INTERFACE ELEMENTS
+// ==========================================
 
 const pointNumber = document.getElementById("point-number");
 const pointTitle = document.getElementById("point-title");
@@ -140,6 +159,9 @@ let selectedMission = "seitah";
 let hasEvaluated = false;
 
 
+// ==========================================
+// 5. GET AVAILABLE RESOURCES
+// ==========================================
 
 function getAvailableResources() {
     return {
@@ -151,6 +173,9 @@ function getAvailableResources() {
 }
 
 
+// ==========================================
+// 6. UPDATE RESOURCE VALUES
+// ==========================================
 
 function updateResourceValues() {
 
@@ -171,6 +196,9 @@ Object.values(resourceInputs).forEach(input => {
 });
 
 
+// ==========================================
+// 7. SELECT AN EXPLORATION MISSION
+// ==========================================
 
 function selectMission(missionId) {
 
@@ -190,10 +218,10 @@ function selectMission(missionId) {
     decisionMission.textContent = mission.name;
 
     pointResources.innerHTML = `
-        <li>Agua: ${mission.resources.water}%</li>
-        <li>Oxígeno: ${mission.resources.oxygen}%</li>
-        <li>Energía: ${mission.resources.energy}%</li>
-        <li>Alimentos: ${mission.resources.food}%</li>
+        <li>Water: ${mission.resources.water}%</li>
+        <li>Oxygen: ${mission.resources.oxygen}%</li>
+        <li>Energy: ${mission.resources.energy}%</li>
+        <li>Food: ${mission.resources.food}%</li>
     `;
 
     document.querySelectorAll(".map-marker").forEach(marker => {
@@ -210,6 +238,9 @@ function selectMission(missionId) {
 }
 
 
+// ==========================================
+// 8. MAP MARKER EVENTS
+// ==========================================
 
 document.querySelectorAll(".map-marker").forEach(marker => {
 
@@ -235,6 +266,9 @@ document.querySelectorAll("[data-select]").forEach(button => {
 });
 
 
+// ==========================================
+// 9. MAP LAYER SWITCHING
+// ==========================================
 
 const surfaceMap = document.getElementById("surface-map");
 const topographicMap = document.getElementById("topographic-map");
@@ -256,12 +290,12 @@ function changeLayer(layer) {
 
     if (layer === "surface") {
         surfaceMap.classList.remove("hidden");
-        layerMessage.textContent = "Vista de superficie seleccionada.";
+        layerMessage.textContent = "Surface view selected.";
     }
 
     if (layer === "topography") {
         topographicMap.classList.remove("hidden");
-        layerMessage.textContent = "Vista topográfica seleccionada. Consulta el relieve del cráter.";
+        layerMessage.textContent = "Topographic view selected. Explore the crater's terrain.";
     }
 }
 
@@ -272,9 +306,12 @@ layerButtons.forEach(button => {
 });
 
 
+// ==========================================
+// 10. EXPLORATION ROUTE
+// ==========================================
 
-// Las coordenadas son posiciones visuales del mapa.
-// No son coordenadas geográficas de Marte.
+// These coordinates represent visual positions on the map.
+// They are not actual geographic coordinates on Mars.
 
 function updateRoute(missionId) {
 
@@ -301,22 +338,25 @@ function updateRoute(missionId) {
     routeDestination.setAttribute("cy", destination.y);
 
     routeDescription.textContent =
-        `Ruta ilustrativa: Starship → ${missions[missionId].name} → Starship`;
+        `Illustrative route: Starship → ${missions[missionId].name} → Starship`;
 }
 
 
+// ==========================================
+// 11. RESET MISSION EVALUATION
+// ==========================================
 
 function resetEvaluation() {
 
-    decisionStatus.textContent = "PENDIENTE";
+    decisionStatus.textContent = "PENDING";
     decisionStatus.className = "decision-status";
 
     evaluationResult.innerHTML = `
         <div class="result-icon">⌁</div>
-        <h3>Esperando evaluación</h3>
+        <h3>Awaiting Evaluation</h3>
         <p>
-            Presiona el botón para comprobar si los recursos
-            disponibles permiten realizar esta expedición.
+            Press the button to check whether the available resources
+            are sufficient to complete this expedition.
         </p>
     `;
 
@@ -324,7 +364,9 @@ function resetEvaluation() {
 }
 
 
-
+// ==========================================
+// 12. RESOURCE COMPARISON
+// ==========================================
 
 function updateComparison() {
 
@@ -342,7 +384,7 @@ function updateComparison() {
         const row = element.closest(".comparison-row");
 
         element.textContent =
-            `Disponible: ${available[resource]}% / Requerido: ${required[resource]}%`;
+            `Available: ${available[resource]}% / Required: ${required[resource]}%`;
 
         row.classList.toggle(
             "insufficient",
@@ -353,7 +395,9 @@ function updateComparison() {
 }
 
 
-
+// ==========================================
+// 13. MISSION EVALUATION SYSTEM
+// ==========================================
 
 function evaluateMission() {
 
@@ -369,11 +413,11 @@ function evaluateMission() {
 
         evaluationResult.innerHTML = `
             <div class="result-icon">⌂</div>
-            <h3>Base Starship</h3>
+            <h3>Starship Base</h3>
             <p>
-                Este punto representa el refugio de la tripulación.
-                Selecciona una misión de exploración para evaluar
-                los recursos disponibles.
+                This location represents the crew's shelter.
+                Select an exploration mission to evaluate
+                the available resources.
             </p>
         `;
 
@@ -383,10 +427,10 @@ function evaluateMission() {
     }
 
     const resourceNames = {
-        water: "agua",
-        oxygen: "oxígeno",
-        energy: "energía",
-        food: "alimentos"
+        water: "water",
+        oxygen: "oxygen",
+        energy: "energy",
+        food: "food"
     };
 
     const resources = ["water", "oxygen", "energy", "food"];
@@ -419,23 +463,23 @@ function evaluateMission() {
 
     if (insufficient.length > 0) {
 
-        decisionStatus.textContent = "NO RECOMENDADA";
+        decisionStatus.textContent = "NOT RECOMMENDED";
         decisionStatus.className = "decision-status danger";
 
         evaluationResult.innerHTML = `
             <div class="result-icon">!</div>
-            <h3>Expedición no recomendada</h3>
+            <h3>Expedition Not Recommended</h3>
             <p>
-                Los recursos actuales no alcanzan para cubrir
-                los requerimientos estimados de la misión.
+                Current resources are insufficient to meet
+                the estimated requirements for this mission.
             </p>
             <p class="result-detail">
-                Recursos insuficientes:
+                Insufficient resources:
                 <strong>${insufficient.join(", ")}</strong>.
             </p>
             <p>
-                Se recomienda permanecer en la base,
-                conservar recursos y revisar las reservas.
+                It is recommended to remain at the base,
+                conserve resources, and check available supplies.
             </p>
         `;
 
@@ -444,23 +488,23 @@ function evaluateMission() {
 
     if (lowReserve.length > 0) {
 
-        decisionStatus.textContent = "PRECAUCIÓN";
+        decisionStatus.textContent = "CAUTION";
         decisionStatus.className = "decision-status warning";
 
         evaluationResult.innerHTML = `
             <div class="result-icon">⚠</div>
-            <h3>Expedición con precaución</h3>
+            <h3>Expedition Requires Caution</h3>
             <p>
-                Los recursos alcanzan para cubrir los requerimientos,
-                pero el margen de seguridad es reducido.
+                Available resources meet the mission requirements,
+                but the safety margin is limited.
             </p>
             <p class="result-detail">
-                Reservas que requieren atención:
+                Reserves requiring attention:
                 <strong>${lowReserve.join(", ")}</strong>.
             </p>
             <p>
-                Se recomienda revisar los suministros y
-                considerar posponer la expedición.
+                It is recommended to review supplies and
+                consider postponing the expedition.
             </p>
         `;
 
@@ -472,21 +516,23 @@ function evaluateMission() {
 
     evaluationResult.innerHTML = `
         <div class="result-icon">✓</div>
-        <h3>Expedición viable</h3>
+        <h3>Expedition Viable</h3>
         <p>
-            Los recursos disponibles cubren los requerimientos
-            estimados de esta misión y mantienen el margen
-            de seguridad configurado para la simulación.
+            Available resources meet the estimated requirements
+            for this mission and maintain the safety margin
+            configured for this simulation.
         </p>
         <p>
-            Se recomienda mantener el monitoreo de los recursos
-            y priorizar siempre el regreso seguro a la base.
+            Continue monitoring resources and always prioritize
+            a safe return to the base.
         </p>
     `;
 }
 
 
-
+// ==========================================
+// 14. EVALUATION BUTTON
+// ==========================================
 
 if (evaluateButton) {
 
@@ -503,10 +549,12 @@ if (evaluateButton) {
 }
 
 
-
+// ==========================================
+// 15. INITIALIZE THE SYSTEM
+// ==========================================
 
 selectMission("seitah");
 updateResourceValues();
 changeLayer("surface");
 
-console.log("MARS SURVIVAL 2.0 iniciado correctamente.");
+console.log("MARS SURVIVAL 2.0 successfully initialized.");
