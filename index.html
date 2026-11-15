@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARS SURVIVAL 2.0</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+        <span class="logo-icon">M</span>
+        <div>
+            <h1>MARS SURVIVAL <span>2.0</span></h1>
+            <small>MISSION CONTROL SYSTEM</small>
+        </div>
+    </div>
+
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+
+    <nav id="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#supervivencia">Supervivencia</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#misiones">Misiones</a>
+        <a href="#decision">Evaluación</a>
+        <a href="#fuentes">Fuentes</a>
+    </nav>
+</header>
+
+<main>
+
+    
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <p class="eyebrow">MARS EXPLORATION PROGRAM</p>
+            <h2>SOBREVIVIR<br>ES LA MISIÓN.</h2>
+            <p class="hero-description">
+                El viaje resulto exitoso, ahora el superviviente tendra que racionar sus recursos y planificar cada mision propuesta.
+            </p>
+            <a href="#supervivencia" class="main-button">REVISAR ESTADO DE MISIÓN</a>
+        </div>
+
+        <div class="hero-status">
+            <div class="status-top">
+                <span class="status-dot"></span>
+                MISIÓN EN CURSO
+            </div>
+            <div class="status-data">
+                <div><small>UBICACIÓN</small><strong>CRÁTER JEZERO</strong></div>
+                <div><small>REFUGIO</small><strong>STARSHIP</strong></div>
+                <div><small>OBJETIVO</small><strong>SUPERVIVENCIA</strong></div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="section" id="supervivencia">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">01 / CONTROL DE RECURSOS</p>
+                <h2>Estado de supervivencia</h2>
+            </div>
+            <p>Modifica los niveles disponibles para conocer las posibilidades de realizar una expedición y regresar al refugio.</p>
+        </div>
+
+        <div class="resource-grid">
+            <article class="resource-card">
+                <div class="resource-title"><span class="resource-icon"></span><h3>Agua</h3></div>
+                <div class="resource-number"><strong id="water-value">65</strong><span>%</span></div>
+                <input type="range" id="water" min="0" max="100" value="65">
+                <div class="range-labels"><span>0%</span><span>100%</span></div>
+                <p>Reserva disponible para consumo y actividades.</p>
+            </article>
+
+            <article class="resource-card">
+                <div class="resource-title"><span class="resource-icon"></span><h3>Oxígeno</h3></div>
+                <div class="resource-number"><strong id="oxygen-value">80</strong><span>%</span></div>
+                <input type="range" id="oxygen" min="0" max="100" value="80">
+                <div class="range-labels"><span>0%</span><span>100%</span></div>
+                <p>Reserva necesaria para mantener la respiración.</p>
+            </article>
+
+            <article class="resource-card">
+                <div class="resource-title"><span class="resource-icon"></span><h3>Energía</h3></div>
+                <div class="resource-number"><strong id="energy-value">35</strong><span>%</span></div>
+                <input type="range" id="energy" min="0" max="100" value="35">
+                <div class="range-labels"><span>0%</span><span>100%</span></div>
+                <p>Electricidad disponible para equipos y sistemas.</p>
+            </article>
+
+            <article class="resource-card">
+                <div class="resource-title"><span class="resource-icon"></span><h3>Alimentos</h3></div>
+                <div class="resource-number"><strong id="food-value">90</strong><span>%</span></div>
+                <input type="range" id="food" min="0" max="100" value="90">
+                <div class="range-labels"><span>0%</span><span>100%</span></div>
+                <p>Reservas alimenticias disponibles para la tripulación.</p>
+            </article>
+        </div>
+
+        <div class="resource-note">
+            <strong>Nota:</strong> Los porcentajes y requerimientos son valores simulados y editables. No representan consumos reales establecidos por la NASA.
+        </div>
+    </section>
+
+    
+    <section class="section map-section" id="mapa">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">02 / EXPLORACIÓN PLANETARIA</p>
+                <h2>Mapa de exploración</h2>
+            </div>
+            <p>Selecciona una zona para consultar sus características, objetivos científicos y ruta de exploración.</p>
+        </div>
+
+        <div class="map-layout">
+            <div class="map-container">
+                <div class="map-top-label"><span class="status-dot"></span> JEZERO CRATER / MARS</div>
+
+                <div class="map-layer-controls">
+    <span>CAPAS DEL MAPA</span>
+    <div class="layer-buttons">
+        <button class="layer-button active" data-layer="surface">Superficie</button>
+        <button class="layer-button" data-layer="topography">Topografía</button>
+    </div>
+</div>
+
+                <div class="map-stage">
+                    <img src="imagenes/nuevo-mapa.jpeg" alt="Mapa de superficie del cráter Jezero" class="mars-map" id="surface-map">
+
+                    <img src="imagenes/topografica.jpg" alt="Mapa topográfico del cráter Jezero" class="topographic-map hidden" id="topographic-map">
+
+                    <div class="geology-layer hidden" id="geology-layer">
+                        <div class="geology-zone zone-delta"><span>SEDIMENTOS DEL DELTA</span></div>
+                        <div class="geology-zone zone-crater"><span>TERRENO DEL CRÁTER</span></div>
+                        <div class="geology-zone zone-channel"><span>ANTIGUO CANAL</span></div>
+                    </div>
+
+                    <svg class="route-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <path id="route-path" class="route-path"></path>
+                        <circle id="route-origin" class="route-origin" r="1.5"></circle>
+                        <circle id="route-destination" class="route-destination" r="1.5"></circle>
+                    </svg>
+
+                    <button class="map-marker starship-marker" type="button" data-point="base" style="left:65%;top:35%;" title="Base Starship">
+                        <span class="marker-symbol">⌂</span>
+                        <span class="marker-label">BASE STARSHIP</span>
+                    </button>
+
+                    <button class="map-marker" type="button" data-point="seitah" style="left:75%;top:30%;" title="Séítah">
+                        <span class="marker-number">01</span><span class="marker-label">SÉÍTAH</span>
+                    </button>
+
+                    <button class="map-marker" type="button" data-point="threeforks" style="left:61%;top:64%;" title="Three Forks">
+                        <span class="marker-number">02</span><span class="marker-label">THREE FORKS</span>
+                    </button>
+
+                    <button class="map-marker" type="button" data-point="delta" style="left:30%;top:37%;" title="Frente del delta">
+                        <span class="marker-number">03</span><span class="marker-label">FRENTE DEL DELTA</span>
+                    </button>
+
+                    <button class="map-marker" type="button" data-point="neretva" style="left:85%;top:53%;" title="Neretva Vallis">
+                        <span class="marker-number">04</span><span class="marker-label">NERETVA VALLIS</span>
+                    </button>
+                </div>
+
+                <div class="route-status">
+                    <span class="route-indicator"></span>
+                    <span id="route-description">Ruta ilustrativa: Starship → Séítah → Starship</span>
+                </div>
+
+                <div class="map-legend">
+                    <div><span class="legend-base"></span>Base hipotética</div>
+                    <div><span class="legend-mission"></span>Punto de exploración</div>
+                    <div><span class="legend-route"></span>Ruta de ida y regreso</div>
+                </div>
+
+                <p class="map-disclaimer">
+                    Las posiciones y rutas son ilustrativas. La ubicación de Starship es hipotética.
+                    La capa geológica es esquemática y no está georreferenciada.
+                </p>
+                <p class="layer-message" id="layer-message">Vista de superficie seleccionada.</p>
+            </div>
+
+           
+            <aside class="mission-info">
+                <p class="eyebrow">INFORMACIÓN DE EXPEDICIÓN</p>
+                <span class="mission-number" id="point-number">MISIÓN 01</span>
+                <h3 id="point-title">Séítah</h3>
+
+                <div class="info-block">
+                    <h4>Problemática</h4>
+                    <p id="point-problem"></p>
+                </div>
+                <div class="info-block">
+                    <h4>Objetivo</h4>
+                    <p id="point-objective"></p>
+                </div>
+                <div class="info-block">
+                    <h4>Beneficio esperado</h4>
+                    <p id="point-benefit"></p>
+                </div>
+                <div class="info-block">
+                    <h4>Datos que se investigarían</h4>
+                    <p id="point-data"></p>
+                </div>
+                <div class="info-block">
+                    <h4>Recursos requeridos</h4>
+                    <ul class="required-resources" id="point-resources"></ul>
+                </div>
+
+                <button class="main-button full-button" id="evaluate-button">EVALUAR ESTA MISIÓN</button>
+            </aside>
+        </div>
+    </section>
+
+   
+    <section class="section" id="misiones">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">03 / OBJETIVOS CIENTÍFICOS</p>
+                <h2>Misiones de exploración</h2>
+            </div>
+            <p>Cada expedición investiga una zona diferente del entorno marciano.</p>
+        </div>
+
+        <div class="missions-grid">
+            <article class="mission-card">
+                <span class="mission-card-number">01</span>
+                <h3>Séítah</h3>
+                <p>Investigar el terreno arenoso y rocoso, identificar zonas transitables y estudiar materiales geológicos.</p>
+                <button data-select="seitah">VER MISIÓN</button>
+            </article>
+
+            <article class="mission-card">
+                <span class="mission-card-number">02</span>
+                <h3>Three Forks</h3>
+                <p>Documentar los materiales geológicos y estudiar el área relacionada con el depósito de muestras de Perseverance.</p>
+                <button data-select="threeforks">VER MISIÓN</button>
+            </article>
+
+            <article class="mission-card">
+                <span class="mission-card-number">03</span>
+                <h3>Frente del delta</h3>
+                <p>Examinar capas sedimentarias y buscar indicios de antiguos ambientes relacionados con el agua.</p>
+                <button data-select="delta">VER MISIÓN</button>
+            </article>
+
+            <article class="mission-card">
+                <span class="mission-card-number">04</span>
+                <h3>Neretva Vallis</h3>
+                <p>Investigar sedimentos y rocas del antiguo canal fluvial para conocer su historia geológica.</p>
+                <button data-select="neretva">VER MISIÓN</button>
+            </article>
+        </div>
+    </section>
+
+   
+    <section class="section decision-section" id="decision">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">04 / SISTEMA DE DECISIONES</p>
+                <h2>Centro de decisiones</h2>
+            </div>
+            <p>El sistema compara los recursos disponibles con los requerimientos estimados de la misión.</p>
+        </div>
+
+        <div class="decision-panel">
+            <div class="decision-top">
+                <div>
+                    <small>MISIÓN SELECCIONADA</small>
+                    <h3 id="decision-mission">Séítah</h3>
+                </div>
+                <span class="decision-status" id="decision-status">PENDIENTE</span>
+            </div>
+
+            <div id="evaluation-result" class="evaluation-result">
+                <div class="result-icon">⌁</div>
+                <h3>Esperando evaluación</h3>
+                <p>Selecciona una misión y presiona el botón para comprobar si los recursos permiten realizarla.</p>
+            </div>
+
+            <div class="resource-comparison">
+                <h4>Comparación de recursos</h4>
+                <div class="comparison-row"><span>Agua</span><span id="compare-water"></span></div>
+                <div class="comparison-row"><span>Oxígeno</span><span id="compare-oxygen"></span></div>
+                <div class="comparison-row"><span>Energía</span><span id="compare-energy"></span></div>
+                <div class="comparison-row"><span>Alimentos</span><span id="compare-food"></span></div>
+            </div>
+
+            <p class="decision-note">
+                Evaluación educativa. Los requerimientos y márgenes de seguridad son estimaciones
+                configuradas para este proyecto, no consumos reales de una misión de la NASA.
+            </p>
+        </div>
+    </section>
+
+    <section class="section sources-section" id="fuentes">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">05 / INFORMACIÓN CIENTÍFICA</p>
+                <h2>Fuentes de consulta</h2>
+            </div>
+        </div>
+
+        <div class="sources-grid">
+            <a href="https://science.nasa.gov/mission/mars-2020-perseverance/" target="_blank" rel="noopener noreferrer">
+                <strong>NASA - Perseverance</strong>
+                <span>Información oficial de la misión Mars 2020.</span>
+            </a>
+            <a href="https://science.nasa.gov/resource/perseverances-route-to-the-delta/" target="_blank" rel="noopener noreferrer">
+                <strong>NASA - Route to the Delta</strong>
+                <span>Recorrido del rover Perseverance.</span>
+            </a>
+            <a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener noreferrer">
+                <strong>NASA Mars Trek</strong>
+                <span>Mapas y datos geográficos de Marte.</span>
+            </a>
+            <a href="https://www.usgs.gov/maps/geologic-map-jezero-crater-and-nili-planum-region-mars" target="_blank" rel="noopener noreferrer">
+                <strong>USGS - Mapa geológico de Jezero</strong>
+                <span>Cartografía geológica de la región.</span>
+            </a>
+            <a href="https://www.usgs.gov/centers/astrogeology-science-center" target="_blank" rel="noopener noreferrer">
+                <strong>USGS Astrogeology</strong>
+                <span>Información geológica y cartográfica.</span>
+            </a>
+            <a href="https://orbitalradar.com/mars" target="_blank" rel="noopener noreferrer">
+                <strong>Orbital Radar</strong>
+                <span>Visualización de información de Marte.</span>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="logo">
+        <span class="logo-icon">M</span>
+        <div>
+            <h1>MARS SURVIVAL 2.0</h1>
+            <small>EXPLORATION AND SURVIVAL SYSTEM</small>
+        </div>
+    </div>
+    <p>Proyecto educativo de exploración y supervivencia en Marte.</p>
+    <small>© 2026 MARS SURVIVAL 2.0</small>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
